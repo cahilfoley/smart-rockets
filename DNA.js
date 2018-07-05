@@ -1,7 +1,5 @@
 class DNA {
-  constructor({
-    genes = []
-  } = {}) {
+  constructor({ genes = [] } = {}) {
     while (genes.length < DNA.lifespan) {
       const newForce = p5.Vector.random2D()
       newForce.setMag(DNA.maxForce)
@@ -30,7 +28,7 @@ class DNA {
 
   mutate() {
     for (let i = 0; i < DNA.lifespan; i++) {
-      if (random() < 0.01) {
+      if (random() < DNA.mutationRate) {
         this.genes[i] = p5.Vector.random2D()
         this.genes[i].setMag(DNA.maxForce)
       }
@@ -39,4 +37,5 @@ class DNA {
 }
 
 DNA.lifespan = 400
-DNA.maxForce = 0.2
+DNA.maxForce = 0.3
+DNA.mutationRate = 0.05

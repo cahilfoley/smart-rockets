@@ -36,15 +36,37 @@ class Rocket {
   }
 
   update() {
+    if (this.crashed || this.completed) {
+      return
+    }
+
     // Check for collisions
-    const distanceToTarget = dist(this.pos.x, this.pos.y, this.target.x, this.target.y)
+    const distanceToTarget = dist(
+      this.pos.x,
+      this.pos.y,
+      this.target.x,
+      this.target.y
+    )
+
     if (distanceToTarget < 25) {
       // Within the radius of target
       this.completed = true
+      this.completedStep = this.step
+
+      // Move to center of target
       this.pos = this.target.copy()
+
+      // Clear velocity and acceleration
+      this.vel.mult(0)
+      this.acc.mult(0)
     }
 
-    if (this.pos.x < 0 || this.pos.x > width || this.pos.y < 0 || this.pos.y > height) {
+    if (
+      this.pos.x < 0 ||
+      this.pos.x > width ||
+      this.pos.y < 0 ||
+      this.pos.y > height
+    ) {
       // Gone off the screen
       this.crashed = true
     }
@@ -70,17 +92,19 @@ class Rocket {
 
   calculateFitness() {
     const d = dist(this.pos.x, this.pos.y, this.target.x, this.target.y)
-
     this.fitness = map(d, 0, width, width, 0)
 
     // Big bonus for completing
     if (this.completed) {
       this.fitness *= 10
+
+      // Add an extra bonus for completing quickly
+      this.fitness += (DNA.lifespan - this.completedStep) * 5
     }
 
     // Big penalty for crashing
     if (this.crashed) {
-      this.fitness /= 10
+      this.fitness /= 5
     }
   }
 }

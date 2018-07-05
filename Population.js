@@ -1,27 +1,45 @@
 class Population {
-  constructor({
-    size = 250
-  } = {}) {
+  constructor({ size = 500 } = {}) {
     this.rockets = []
+    this.obstacles = []
     this.target = createVector(width / 2, height / 4)
     this.size = size
     this.step = 0
 
     for (let i = 0; i < size; i++) {
-      this.rockets.push(new Rocket({
-        target: this.target
-      }))
+      this.rockets.push(
+        new Rocket({
+          target: this.target
+        })
+      )
+    }
+  }
+
+  addObstacle(x, y, w, h) {
+    if (w !== 0 && h !== 0) {
+      this.obstacles.push(new Obstacle(x, y, w, h))
     }
   }
 
   draw() {
     this.rockets.forEach(rocket => rocket.draw())
     fill(0, 255, 0)
+    noStroke()
     ellipse(this.target.x, this.target.y, 50)
+    this.obstacles.forEach(obs => obs.draw())
   }
 
   update() {
-    this.rockets.forEach(rocket => rocket.update())
+    this.rockets.forEach(rocket => {
+      rocket.update()
+      if (!rocket.crashed && !rocket.completed) {
+        this.obstacles.forEach(obstacle => {
+          if (obstacle.checkCollision(rocket.pos.x, rocket.pos.y)) {
+            rocket.crashed = true
+          }
+        })
+      }
+    })
     this.step += 1
 
     if (this.step >= DNA.lifespan) {
@@ -76,10 +94,12 @@ class Population {
       // Apply mutation
       newDNA.mutate()
 
-      newPopulation.push(new Rocket({
-        dna: newDNA,
-        target: this.target
-      }))
+      newPopulation.push(
+        new Rocket({
+          dna: newDNA,
+          target: this.target
+        })
+      )
     }
 
     this.rockets = newPopulation
