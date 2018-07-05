@@ -1,5 +1,7 @@
 class DNA {
-  constructor({ genes = [] } = {}) {
+  constructor({
+    genes = []
+  } = {}) {
     while (genes.length < DNA.lifespan) {
       const newForce = p5.Vector.random2D()
       newForce.setMag(DNA.maxForce)
