@@ -19,7 +19,11 @@ class Rocket {
   draw() {
     push()
     noStroke()
-    fill(255, 150)
+    if (this.crashed) {
+      fill(255, 0, 0, 150)
+    } else {
+      fill(255, 150)
+    }
 
     // Move to the position of the rocket
     translate(this.pos.x, this.pos.y)
@@ -57,8 +61,6 @@ class Rocket {
 
       // Clear the acceleration
       this.acc.mult(0)
-
-      this.vel.limit(4)
     }
   }
 

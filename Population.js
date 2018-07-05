@@ -1,6 +1,6 @@
 class Population {
   constructor({
-    size = 100
+    size = 250
   } = {}) {
     this.rockets = []
     this.target = createVector(width / 2, height / 4)
@@ -22,18 +22,18 @@ class Population {
 
   update() {
     this.rockets.forEach(rocket => rocket.update())
-    this.step++
+    this.step += 1
 
-      if (this.step >= DNA.lifespan) {
-        // Calculate fitness for all rockets and generate mating pool
-        this.evaluate()
+    if (this.step >= DNA.lifespan) {
+      // Calculate fitness for all rockets and generate mating pool
+      this.evaluate()
 
-        // Select parents from mating pool and create new population
-        this.naturalSelection()
+      // Select parents from mating pool and create new population
+      this.naturalSelection()
 
-        // Start steps again
-        this.step = 0
-      }
+      // Start steps again
+      this.step = 0
+    }
   }
 
   evaluate() {
