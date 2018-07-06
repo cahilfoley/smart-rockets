@@ -2,14 +2,51 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+  <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="style.css">
   <meta charset="utf-8">
+  <title>Smart Rockets</title>
 
 </head>
 
 <body>
+  <div id="topWrapper">
+    <h2 id="title">Smart Rockets</h2>
+    <div class="row valign-wrapper">
+      <div class="col m8">
+        <blockquote>
+          <span id='description'>An implementation of a genetic evelotionary algorithm based on the
+            <a href='http://www.blprnt.com/smartrockets/'>SmartRockets</a> sketch and inspired by the videos by
+            <a href='https://github.com/shiffman'>Daniel Shiffman</a>
+          </span>
+          <a href="https://github.com/cahilfoley">@cahilfoley</a>
+        </blockquote>
+      </div>
+      <div id="speedWrapper" class="col m4">
+        <p>
+          <label>
+            <input id="regular" name="speed" type="radio" class="filled-in" checked />
+            <span>Fast</span>
+          </label>
+        </p>
+        <p>
+          <p>
+            <label>
+              <input id="fast" name="speed" type="radio" class="filled-in" />
+              <span>Fast</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input id="superSpeed" name="speed" type="radio" class="filled-in" />
+              <span>Super Fast</span>
+            </label>
+          </p>
+      </div>
+    </div>
+  </div>
   <script src="DNA.js"></script>
   <script src="Obstacle.js"></script>
   <script src="Rocket.js"></script>

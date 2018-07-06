@@ -1,7 +1,5 @@
 class DNA {
-  constructor({
-    genes = []
-  } = {}) {
+  constructor({ genes = [] } = {}) {
     while (genes.length < DNA.lifespan) {
       const newForce = p5.Vector.random2D()
       newForce.setMag(DNA.maxForce)
@@ -9,6 +7,14 @@ class DNA {
     }
 
     this.genes = genes
+  }
+
+  static get mutationRate() {
+    return DNA._mutationRate
+  }
+
+  static set mutationRate(newRate) {
+    DNA._mutationRate = newRate
   }
 
   crossover(otherGenes) {
@@ -40,4 +46,4 @@ class DNA {
 
 DNA.lifespan = 400
 DNA.maxForce = 0.3
-DNA.mutationRate = 0.05
+DNA._mutationRate = 0.02

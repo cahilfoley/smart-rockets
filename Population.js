@@ -63,16 +63,18 @@ class Population {
       maxFitness = max(maxFitness, rocket.fitness)
       if (rocket.completed) numCompleted++
     })
-    
+
     const completionRate = numCompleted / this.rockets.length
-    
+
     // Adjust mutation rate based on overall performance
     if (completionRate > 0.5) {
-      DNA.mutationRate = 0.01
+      DNA.mutationRate = 0.002
     } else if (completionRate > 0.2) {
-      DNA.mutationRate = 0.02
+      DNA.mutationRate = 0.005
+    } else if (completionRate > 0.05) {
+      DNA.mutationRate = 0.01
     } else {
-      DNA.mutationRate = 0.05
+      DNA.mutationRate = 0.02
     }
 
     // Normalizing fitness values

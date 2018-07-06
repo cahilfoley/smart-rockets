@@ -1,21 +1,33 @@
 let population
 let mouseDownPoint = null
+let speed = 1
+
+const speedMap = {
+  regular: 1,
+  fast: 10,
+  superSpeed: 50
+}
 
 function setup() {
   frameRate(60)
-  createCanvas(600, 600)
+  const renderer = createCanvas(600, 600)
+  renderer.canvas.id = 'mainCanvas'
   population = new Population()
 }
 
 function draw() {
   background(0)
-  population.update()
+  for (let i = 0; i < speed; i++) {
+    population.update()
+  }
   population.draw()
   if (mouseDownPoint !== null) {
     fill(255)
     let { x, y } = mouseDownPoint
     rect(x, y, mouseX - x, mouseY - y)
   }
+  fill(255)
+  text(`Mutation Rate: ${DNA.mutationRate}`, 10, height - 40)
 }
 
 function mousePressed() {
@@ -29,3 +41,9 @@ function mouseReleased() {
     mouseDownPoint = null
   }
 }
+
+document.querySelectorAll('input[type="radio"]').forEach(radio => {
+  radio.addEventListener('change', event => {
+    speed = speedMap[event.target.id]
+  })
+})
