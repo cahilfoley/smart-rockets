@@ -57,10 +57,23 @@ class Population {
   evaluate() {
     // Getting the max fitness
     let maxFitness = 0
+    let numCompleted = 0
     this.rockets.forEach(rocket => {
       rocket.calculateFitness()
       maxFitness = max(maxFitness, rocket.fitness)
+      if (rocket.completed) numCompleted++
     })
+    
+    const completionRate = numCompleted / this.rockets.length
+    
+    // Adjust mutation rate based on overall performance
+    if (completionRate > 0.5) {
+      DNA.mutationRate = 0.01
+    } else if (completionRate > 0.2) {
+      DNA.mutationRate = 0.02
+    } else {
+      DNA.mutationRate = 0.05
+    }
 
     // Normalizing fitness values
     this.rockets.forEach(rocket => {
