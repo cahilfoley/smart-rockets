@@ -101,7 +101,7 @@ class Population {
     })
     
     if (numCompleted === 0) {
-      this.failSteak = true
+      this.failStreak = true
     } else {
       this.failStreak = false
     }
