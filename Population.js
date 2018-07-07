@@ -6,6 +6,7 @@ class Population {
     this.size = size
     this.step = 0
     this.failStreak = false
+    this.numCompleted = 0
 
     for (let i = 0; i < size; i++) {
       this.rockets.push(
@@ -65,6 +66,7 @@ class Population {
       if (rocket.completed) numCompleted++
     })
 
+    this.numCompleted = numCompleted
     const completionRate = numCompleted / this.rockets.length
 
     // Adjust mutation rate based on overall performance
