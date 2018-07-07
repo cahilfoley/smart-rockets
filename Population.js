@@ -5,6 +5,7 @@ class Population {
     this.target = createVector(width / 2, height / 4)
     this.size = size
     this.step = 0
+    this.failStreak = false
 
     for (let i = 0; i < size; i++) {
       this.rockets.push(
@@ -67,7 +68,9 @@ class Population {
     const completionRate = numCompleted / this.rockets.length
 
     // Adjust mutation rate based on overall performance
-    if (completionRate > 0.5) {
+    if (numCompleted === 0 && this.failStreak && DNA. mutationRate < 0.5) {
+      DNA.mutationRate += 0.01
+    } else if (completionRate > 0.5) {
       DNA.mutationRate = 0.002
     } else if (completionRate > 0.2) {
       DNA.mutationRate = 0.005
@@ -92,6 +95,12 @@ class Population {
         this.matingPool.push(rocket)
       }
     })
+    
+    if (numCompleted === 0) {
+      this.failSteak = true
+    } else {
+      this.failStreak = false
+    }
   }
 
   naturalSelection() {
