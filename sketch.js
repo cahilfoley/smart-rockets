@@ -27,8 +27,9 @@ function draw() {
     rect(x, y, mouseX - x, mouseY - y)
   }
   fill(255)
-  text(`Mutation Rate: ${DNA.mutationRate}`, 10, height - 40)
-  text(`Fail Streak: ${population.failStreak}`, 10, height - 25)
+  text(`Mutation Rate: ${DNA.mutationRate}`, 10, height - 45)
+  text(`Fail Streak: ${population.failStreak}`, 10, height - 30)
+  text(`Number Completed: ${population.numCompleted}`, 10, height - 15)
 }
 
 function mousePressed() {
