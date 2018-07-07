@@ -68,16 +68,20 @@ class Population {
     const completionRate = numCompleted / this.rockets.length
 
     // Adjust mutation rate based on overall performance
-    if (numCompleted === 0 && this.failStreak && DNA. mutationRate < 0.5) {
-      DNA.mutationRate += 0.01
-    } else if (completionRate > 0.5) {
-      DNA.mutationRate = 0.002
-    } else if (completionRate > 0.2) {
-      DNA.mutationRate = 0.005
-    } else if (completionRate > 0.05) {
-      DNA.mutationRate = 0.01
+    if (numCompleted === 0 && this.failStreak) {
+      if (DNA.mutationRate < 0.5) {
+        DNA.mutationRate += 0.01
+      }
     } else {
-      DNA.mutationRate = 0.02
+      if (completionRate > 0.5) {
+        DNA.mutationRate = 0.002
+      } else if (completionRate > 0.2) {
+        DNA.mutationRate = 0.005
+      } else if (completionRate > 0.05) {
+        DNA.mutationRate = 0.01
+      } else {
+        DNA.mutationRate = 0.02
+      }
     }
 
     // Normalizing fitness values
