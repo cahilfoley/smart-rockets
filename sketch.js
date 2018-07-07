@@ -28,6 +28,7 @@ function draw() {
   }
   fill(255)
   text(`Mutation Rate: ${DNA.mutationRate}`, 10, height - 40)
+  text(`Fail Streak: ${population.failStreak}`, 10, height - 25)
 }
 
 function mousePressed() {
